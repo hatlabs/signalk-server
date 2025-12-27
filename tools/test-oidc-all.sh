@@ -61,6 +61,7 @@ while [[ $# -gt 0 ]]; do
         -u|--username) USERNAME="$2"; shift 2 ;;
         -p|--password) PASSWORD="$2"; shift 2 ;;
         -v|--verbose) VERBOSE=true; shift ;;
+        -k|--insecure) INSECURE=true; shift ;;
         --auth-type) AUTH_TYPE="$2"; shift 2 ;;
         *) log_fail "Unknown option: $1"; usage ;;
     esac
@@ -76,7 +77,10 @@ if [[ -z "$PASSWORD" ]]; then
     exit 1
 fi
 
-CURL_OPTS=(-s -k)
+CURL_OPTS=(-s)
+if $INSECURE; then
+    CURL_OPTS+=(-k)
+fi
 
 TOTAL_TESTS=0
 PASSED_TESTS=0
@@ -195,7 +199,7 @@ case "$AUTH_TYPE" in
         ;;
 
     keycloak)
-        ACTION_URL=$(grep -oP 'action="[^"]*"' auth_page.html | head -1 | sed 's/action="//;s/"$//' | sed 's/&amp;/\&/g')
+        ACTION_URL=$(sed -n 's/.*action="\([^"]*\)".*/\1/p' auth_page.html | head -1 | sed 's/&amp;/\&/g')
         test_result "3.1 Found login form" "$( [[ -n "$ACTION_URL" ]] && echo true || echo false )"
 
         if [[ -n "$ACTION_URL" ]]; then

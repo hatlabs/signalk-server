@@ -293,7 +293,7 @@ case "$AUTH_TYPE" in
     keycloak)
         # Keycloak uses form-based login
         # Extract the login form action URL
-        ACTION_URL=$(grep -oP 'action="[^"]*"' step2_body.html | head -1 | sed 's/action="//;s/"$//' | sed 's/&amp;/\&/g')
+        ACTION_URL=$(sed -n 's/.*action="\([^"]*\)".*/\1/p' step2_body.html | head -1 | sed 's/&amp;/\&/g')
 
         if [[ -z "$ACTION_URL" ]]; then
             log_error "Could not find Keycloak login form"

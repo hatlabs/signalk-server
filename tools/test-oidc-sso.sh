@@ -69,6 +69,7 @@ while [[ $# -gt 0 ]]; do
         -u|--username) USERNAME="$2"; shift 2 ;;
         -p|--password) PASSWORD="$2"; shift 2 ;;
         -v|--verbose) VERBOSE=true; shift ;;
+        -k|--insecure) INSECURE=true; shift ;;
         --auth-type) AUTH_TYPE="$2"; shift 2 ;;
         *) log_error "Unknown option: $1"; usage ;;
     esac
@@ -89,7 +90,10 @@ OUTPUT_DIR="/tmp/sso_test_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$OUTPUT_DIR"
 cd "$OUTPUT_DIR"
 
-CURL_OPTS=(-s -k)
+CURL_OPTS=(-s)
+if $INSECURE; then
+    CURL_OPTS+=(-k)
+fi
 RESULTS=()
 add_result() { RESULTS+=("$1"); }
 
@@ -173,7 +177,7 @@ case "$AUTH_TYPE" in
             "$AUTH_URL/protocol/openid-connect/auth?client_id=account&response_type=code" \
             -o step2a_login.html
 
-        ACTION_URL=$(grep -oP 'action="[^"]*"' step2a_login.html | head -1 | sed 's/action="//;s/"$//' | sed 's/&amp;/\&/g')
+        ACTION_URL=$(sed -n 's/.*action="\([^"]*\)".*/\1/p' step2a_login.html | head -1 | sed 's/&amp;/\&/g')
 
         if [[ -n "$ACTION_URL" ]]; then
             curl "${CURL_OPTS[@]}" -c cookies.txt -b cookies.txt \

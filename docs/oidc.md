@@ -62,21 +62,21 @@ export SIGNALK_OIDC_CLIENT_SECRET=your-client-secret
 
 ### Environment Variables
 
-| Variable                          | Required | Default                | Description                                          |
-| --------------------------------- | -------- | ---------------------- | ---------------------------------------------------- |
-| `SIGNALK_OIDC_ENABLED`            | Yes      | `false`                | Enable OIDC authentication                           |
-| `SIGNALK_OIDC_ISSUER`             | Yes      | -                      | OIDC provider URL (e.g., `https://auth.example.com`) |
-| `SIGNALK_OIDC_CLIENT_ID`          | Yes      | -                      | Client ID registered with the provider               |
-| `SIGNALK_OIDC_CLIENT_SECRET`      | Yes      | -                      | Client secret from the provider                      |
-| `SIGNALK_OIDC_SCOPE`              | No       | `openid email profile` | OAuth scopes to request                              |
-| `SIGNALK_OIDC_DEFAULT_PERMISSION` | No       | `readonly`             | Default permission for new users                     |
-| `SIGNALK_OIDC_AUTO_CREATE_USERS`  | No       | `true`                 | Auto-create users on first login                     |
-| `SIGNALK_OIDC_ADMIN_GROUPS`       | No       | -                      | Comma-separated groups that grant admin              |
-| `SIGNALK_OIDC_READWRITE_GROUPS`   | No       | -                      | Comma-separated groups that grant readwrite          |
-| `SIGNALK_OIDC_GROUPS_ATTRIBUTE`   | No       | `groups`               | ID token claim containing groups                     |
-| `SIGNALK_OIDC_PROVIDER_NAME`      | No       | `SSO Login`            | Button text on login page                            |
-| `SIGNALK_OIDC_AUTO_LOGIN`         | No       | `false`                | Auto-redirect to OIDC provider                       |
-| `SIGNALK_OIDC_REDIRECT_URI`       | No       | Auto-detected          | Override the callback URL                            |
+| Variable                          | Required | Default                | Description                                                   |
+| --------------------------------- | -------- | ---------------------- | ------------------------------------------------------------- |
+| `SIGNALK_OIDC_ENABLED`            | Yes      | `false`                | Enable OIDC authentication                                    |
+| `SIGNALK_OIDC_ISSUER`             | Yes      | -                      | OIDC provider URL (e.g., `https://auth.example.com`)          |
+| `SIGNALK_OIDC_CLIENT_ID`          | Yes      | -                      | Client ID registered with the provider                        |
+| `SIGNALK_OIDC_CLIENT_SECRET`      | Yes      | -                      | Client secret from the provider                               |
+| `SIGNALK_OIDC_SCOPE`              | No       | `openid email profile` | OAuth scopes to request (add `groups` for permission mapping) |
+| `SIGNALK_OIDC_DEFAULT_PERMISSION` | No       | `readonly`             | Default permission for new users                              |
+| `SIGNALK_OIDC_AUTO_CREATE_USERS`  | No       | `true`                 | Auto-create users on first login                              |
+| `SIGNALK_OIDC_ADMIN_GROUPS`       | No       | -                      | Comma-separated groups that grant admin                       |
+| `SIGNALK_OIDC_READWRITE_GROUPS`   | No       | -                      | Comma-separated groups that grant readwrite                   |
+| `SIGNALK_OIDC_GROUPS_ATTRIBUTE`   | No       | `groups`               | ID token claim containing groups                              |
+| `SIGNALK_OIDC_PROVIDER_NAME`      | No       | `SSO Login`            | Button text on login page                                     |
+| `SIGNALK_OIDC_AUTO_LOGIN`         | No       | `false`                | Auto-redirect to OIDC provider                                |
+| `SIGNALK_OIDC_REDIRECT_URI`       | No       | Auto-detected          | Override the callback URL                                     |
 
 ### security.json Configuration
 
