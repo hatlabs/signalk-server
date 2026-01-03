@@ -15,8 +15,7 @@ import {
   FormText,
   Collapse,
   Badge,
-  Row,
-  Spinner
+  Row
 } from 'reactstrap'
 
 class OIDCSettings extends Component {
@@ -313,11 +312,9 @@ class OIDCSettings extends Component {
                         onClick={this.handleTestConnection}
                         disabled={this.state.isTesting || !this.state.issuer}
                       >
-                        {this.state.isTesting ? (
-                          <Spinner size="sm" />
-                        ) : (
-                          <i className="fa fa-plug" />
-                        )}{' '}
+                        <i
+                          className={`fa fa-${this.state.isTesting ? 'spinner fa-spin' : 'plug'}`}
+                        />{' '}
                         Test Connection
                       </Button>
                     </Col>
@@ -600,11 +597,9 @@ class OIDCSettings extends Component {
               onClick={this.handleSaveConfig}
               disabled={this.state.isSaving}
             >
-              {this.state.isSaving ? (
-                <Spinner size="sm" />
-              ) : (
-                <i className="fa fa-dot-circle-o" />
-              )}{' '}
+              <i
+                className={`fa fa-${this.state.isSaving ? 'spinner fa-spin' : 'dot-circle-o'}`}
+              />{' '}
               Save
             </Button>
           </CardFooter>
