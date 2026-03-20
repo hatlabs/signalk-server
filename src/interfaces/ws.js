@@ -39,7 +39,7 @@ module.exports = function (app) {
   const pathSources = {}
 
   api.mdns = {
-    name: app.config.settings.ssl ? '_signalk-wss' : '_signalk-ws',
+    name: (app.config.settings.ssl || app.config.isExternalSsl()) ? '_signalk-wss' : '_signalk-ws',
     type: 'tcp',
     port: ports.getExternalPort(app)
   }

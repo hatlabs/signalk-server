@@ -178,7 +178,7 @@ module.exports = function (app) {
     },
 
     mdns: {
-      name: app.config.settings.ssl ? '_signalk-https' : '_signalk-http',
+      name: (app.config.settings.ssl || app.config.isExternalSsl()) ? '_signalk-https' : '_signalk-http',
       type: 'tcp',
       port: ports.getExternalPort(app)
     }
