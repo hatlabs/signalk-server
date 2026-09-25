@@ -57,20 +57,25 @@ function useIsAdmin(): boolean {
 
 /**
  * Tells an instance editor that a path mapping is keyed on the instance
- * number it edits.
+ * number it edits, and whether the server moves the mapping along when the
+ * editor renumbers the instance.
  */
 export const MappedInstanceNotice: React.FC<{
   device: N2kDeviceEntry
   group: string
   discriminator?: number
   instance: number
-}> = ({ device, group, discriminator, instance }) => {
+  followsRenumber?: boolean
+}> = ({ device, group, discriminator, instance, followsRenumber }) => {
   const rules = useN2kInstanceRules(deviceKeyOf(device))
   if (!hasMappingRule(rules, { group, discriminator, instance })) return null
   return (
     <div style={{ ...helpStyle, marginLeft: '12px' }}>
       <FontAwesomeIcon icon={faInfoCircle} /> A Signal K path mapping exists for
-      this instance; it stops applying if the instance changes.
+      this instance;{' '}
+      {followsRenumber
+        ? 'renumbering it here moves the mapping to the new instance.'
+        : 'it stops applying if the instance changes.'}
     </div>
   )
 }
